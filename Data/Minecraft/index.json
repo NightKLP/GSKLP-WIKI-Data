@@ -1,1 +1,10 @@
-
+{
+  "category": "minecraft",
+  "name": "Minecraft",
+  "desc": "MCKLP server: abilities, titles and commands",
+  "color": "#f59e0b",
+  "pages": [
+    { "id": "mcklp-start", "title": "Getting started on MCKLP", "file": "getting-started.json" },
+    { "id": "mcklp-rules", "title": "Server rules", "file": "rules.json" }
+  ]
+}

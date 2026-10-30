@@ -1,0 +1,12 @@
+{
+  "id": "mcklp-rules",
+  "category": "minecraft",
+  "type": "Rules",
+  "title": "Server rules",
+  "summary": "The rules players must follow on the Minecraft server.",
+  "tags": ["rules", "ban", "behavior"],
+  "details": {},
+  "content": [
+    "Don't goon!"
+  ]
+}

@@ -1,1 +1,15 @@
-
+{
+  "id": "mcklp-start",
+  "category": "minecraft",
+  "type": "Guide",
+  "title": "Getting started on MCKLP",
+  "summary": "A beginner guide for our Minecraft server!",
+  "tags": ["start", "beginner", "mcklp", "klp"],
+  "details": {},
+  "content": [
+    "beginner guide",
+    "## First steps",
+    "- Step 1",
+    "- Step 2"
+  ]
+}
