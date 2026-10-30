@@ -1,1 +1,20 @@
-
+{
+  "id": "getting-started",
+  "category": "terraria",
+  "type": "Guide",
+  "title": "Getting started on Terraria",
+  "summary": "How to join our Terraria server (gsklp.ddns.net).",
+  "tags": ["join", "ip", "connect", "tshock", "start"],
+  "details": { "Address": "gsklp.ddns.net", "Port": "7777" },
+  "content": [
+    "## Steps to join",
+    "- Open Terraria and choose Multiplayer",
+    "- Select the character you want to play with",
+    "- Make sure you are on Join tab",
+    "- Click on Connect",
+    "- Enter the server address and port",
+    "- Server doesn't have a password so leave that empty",
+    "- Turn on Remember",
+    "- Click Join!",
+  ]
+}
