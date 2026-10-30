@@ -15,6 +15,6 @@
     "- Enter the server address and port",
     "- Server doesn't have a password so leave that empty",
     "- Turn on Remember",
-    "- Click Join!"
+    "- Click Join!",
   ]
 }
