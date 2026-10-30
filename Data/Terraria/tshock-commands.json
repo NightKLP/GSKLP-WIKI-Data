@@ -1,0 +1,12 @@
+{
+  "id": "tshock-commands",
+  "category": "terraria",
+  "type": "Commands",
+  "title": "TShock commands",
+  "summary": "Sample list of useful commands players can use in the Terraria server.",
+  "tags": ["commands", "tshock", "chat"],
+  "details": {},
+  "content": [
+    "/goon [true/false]"
+  ]
+}

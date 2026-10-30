@@ -1,0 +1,15 @@
+{
+  "id": "terra-blade",
+  "category": "terraria",
+  "type": "Item",
+  "title": "Terra Blade",
+  "summary": "[description.]",
+  "tags": ["sword", "weapon", "terrablade"],
+  "details": { "Type": "Sword", "Damage": "85", "Obtained": "-" },
+  "content": [
+    "its a sword.",
+    "## How to get it",
+    "- Step 1",
+    "Goon"
+  ]
+}
