@@ -1,1 +1,17 @@
-
+{
+  "id": "gsklp-about",
+  "category": "gsklp",
+  "type": "Guide",
+  "title": "What is GSKLP?",
+  "summary": "quick rundown of gsklp and the servers we play on",
+  "tags": ["gsklp", "about", "servers", "community"],
+  "updated": "2026-10-28",
+  "details": { "Terraria IP": "gsklp.ddns.net", "Minecraft": "unknown" },
+  "content": [
+    "GSKLP is our little community for the games we play together.",
+    "## Servers",
+    "- Terraria - TShock server",
+    "- Minecraft - PaperMC server",
+    "we add more games when we get them working"
+  ]
+}

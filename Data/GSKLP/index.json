@@ -1,1 +1,9 @@
-
+{
+  "category": "gsklp",
+  "name": "GSKLP",
+  "desc": "about gsklp, our servers and the community",
+  "color": "#8b5cf6",
+  "pages": [
+    { "id": "gsklp-about", "title": "What is GSKLP?", "file": "about.json" }
+  ]
+}
