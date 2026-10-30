@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GSKLP Wiki</title>
+<style>
+:root{
+  --bg:#0e0c16; --panel:#171425; --panel2:#1f1b32; --border:#2e2947;
+  --text:#ebe8f7; --muted:#9a95b8;
+  /* gsklp purple */
+  --accent:#8b5cf6; --link:#b7a2ff;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  min-height:100vh; display:flex; flex-direction:column;
+}
+a{color:inherit; text-decoration:none}
+header.top{padding:14px 16px; border-bottom:1px solid var(--border); background:var(--panel)}
+.brand{font-weight:700; font-size:18px; letter-spacing:.3px}
+.brand span{color:var(--accent)}
+main{flex:1; width:100%; max-width:820px; margin:0 auto; padding:20px 16px 40px}
+footer{padding:16px; text-align:center; color:var(--muted); font-size:13px; border-top:1px solid var(--border)}
+
+.hero{text-align:center; padding:32px 0 8px}
+.hero h1{font-size:34px; margin:0 0 6px}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted); margin:0 0 22px}
+.cats{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:28px}
+.cat{display:block; padding:18px; background:var(--panel); border:1px solid var(--border); border-left:4px solid var(--c); border-radius:14px}
+.cat:hover{background:var(--panel2)}
+.cat b{font-size:18px}
+.cat small{display:block; color:var(--muted); margin-top:4px}
+.cat em{display:block; font-style:normal; color:var(--muted); font-size:13px; margin-top:10px}
+
+.searchbox{display:flex; gap:8px}
+.searchbox input{
+  flex:1; min-width:0; padding:14px 18px; font-size:16px; color:var(--text);
+  background:var(--panel2); border:1px solid var(--border); border-radius:999px; outline:none;
+}
+.searchbox input:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(139,92,246,.25)}
+.searchbox button{padding:0 22px; border:0; border-radius:999px; background:var(--accent); color:#fff; font-size:15px; font-weight:600; cursor:pointer}
+
+.chips{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px}
+.chip{padding:7px 14px; border-radius:999px; border:1px solid var(--border); background:var(--panel); font-size:14px}
+.chip:hover{background:var(--panel2)}
+.chip.on{background:var(--accent); border-color:var(--accent); color:#fff}
+
+.pagehead h2{margin:0 0 4px; font-size:24px}
+.pagehead p{margin:0 0 14px; color:var(--muted)}
+.meta{color:var(--muted); font-size:14px; margin:14px 0 6px}
+.result{display:block; padding:14px 0; border-bottom:1px solid var(--border)}
+.crumb{display:flex; align-items:center; gap:6px; color:var(--muted); font-size:13px}
+.dot{width:9px; height:9px; border-radius:50%; display:inline-block}
+.rtitle{font-size:19px; color:var(--link); margin:2px 0}
+.result:hover .rtitle{text-decoration:underline}
+.rsnip{color:#c9c5de; font-size:15px}
+mark{background:rgba(139,92,246,.4); color:#fff; border-radius:3px; padding:0 2px}
+.empty{padding:34px 0; color:var(--muted); text-align:center}
+
+.bc{font-size:14px; color:var(--muted); margin-bottom:14px}
+.bc a{color:var(--link)}
+.bc a:hover{text-decoration:underline}
+.entry h1{margin:0 0 6px; font-size:28px}
+.badge{display:inline-block; padding:2px 10px; border-radius:999px; font-size:12px; background:var(--panel2); border:1px solid var(--border); color:var(--muted)}
+.lead{color:#c9c5de; margin:12px 0}
+.info{width:100%; border-collapse:collapse; margin:16px 0; background:var(--panel); border:1px solid var(--border)}
+.info th,.info td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--border); font-size:15px}
+.info th{width:38%; color:var(--muted); font-weight:600}
+.entry h3{margin:22px 0 6px; font-size:19px}
+.entry ul{padding-left:22px}
+.tags{margin-top:22px; display:flex; gap:6px; flex-wrap:wrap}
+.tags a:hover{border-color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="#/" class="brand">GSKLP <span>Wiki</span></a>
+</header>
+
+<main id="app"></main>
+
+<footer>GSKLP Wiki &mdash; community made</footer>
+
+<script>
+
+// just hardcoding everything for now,
+// if we ever get more than like 20 pages maybe move to json or something
+
+const klpCats = [
+    { id: "gsklp", name: "GSKLP", desc: "about gsklp, our servers and the community", color: "#8b5cf6" },
+    { id: "terraria", name: "Terraria", desc: "TShock server: abilities, titles and commands", color: "#34d399" },
+    { id: "minecraft", name: "Minecraft", desc: "MCKLP server: abilities, titles and commands", color: "#f59e0b" }
+];
+
+const klpPages = [
+    {
+        id: "gsklp-about",
+        category: "gsklp",
+        type: "Guide",
+        title: "What is GSKLP?",
+        summary: "quick rundown of gsklp and the servers we play on",
+        tags: ["gsklp", "about", "servers", "community"],
+        updated: "2026-10-28",
+        details: { "Terraria IP": "gsklp.ddns.net", "Minecraft": "MCKLP" },
+        content: [
+            "GSKLP is our little community for the games we play together.",
+            "## Servers",
+            "- Terraria - TShock server (gsklp.ddns.net)",
+            "- Minecraft - MCKLP server",
+            "we add more games when we get them working"
+        ]
+    },
+    // todo: actual info, this page is still a placeholder
+    {
+        id: "terra-blade",
+        category: "terraria",
+        type: "Item",
+        title: "Terra Blade",
+        summary: "[description.]",
+        tags: ["sword", "weapon", "terrablade"],
+        details: { "Type": "Sword", "Damage": "67", "Obtained": "-" },
+        content: [
+            "its a sword.",
+            "How to get it",
+            "-Step 1",
+            "Goon"
+        ]
+    },
+    {
+        id: "terraria-join",
+        category: "terraria",
+        type: "Guide",
+        title: "How to join the Terraria server",
+        summary: "usually by gsklp.ddns.net if its not, night might forgot to renew the server.",
+        tags: ["join", "ip", "connect", "tshock"],
+        details: {},
+        content: [
+            "Write the steps here.",
+            "- Open Terraria and choose Multiplayer",
+            "- Join via IP and enter the server address"
+        ]
+    },
+    {
+        id: "tshock-commands",
+        category: "terraria",
+        type: "Commands",
+        title: "TShock commands",
+        summary: "[Sample List of useful commands players can use in the Terraria server.",
+        tags: ["commands", "tshock", "chat"],
+        details: {},
+        content: [
+            "/goon [true/false]"
+        ]
+    },
+    {
+        id: "mcklp-start",
+        category: "minecraft",
+        type: "Guide",
+        title: "Getting started on MCKLP",
+        summary: "A beginner guide for our Minecraft server!",
+        tags: ["start", "beginner", "mcklp", "klp"],
+        details: {},
+        content: [
+            "begginer guide",
+            "## First steps",
+            "- Step 1",
+            "- Step 2"
+        ]
+    },
+    {
+        id: "mcklp-rules",
+        category: "minecraft",
+        type: "Rules",
+        title: "Server rules",
+        summary: "The rules players must follow on the Minecraft server.",
+        tags: ["rules", "ban", "behavior"],
+        details: {},
+        content: [
+            "Don't goon!"
+        ]
+    }
+];
+
+const app = document.getElementById("app");
+
+function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+}
+
+function showHome() {
+    let cards = "";
+
+    for (let i = 0; i < klpCats.length; i++) {
+        let cat = klpCats[i];
+        let count = 0;
+
+        for (let j = 0; j < klpPages.length; j++) {
+            if (klpPages[j].category === cat.id) count++;
+        }
+
+        cards += `<a class="cat" style="--c:${cat.color}" href="#/c/${cat.id}/">
+            <b>${esc(cat.name)}</b>
+            <small>${esc(cat.desc)}</small>
+            <em>${count} pages</em>
+        </a>`;
+    }
+
+    app.innerHTML = `
+        <section class="hero">
+            <h1>GSKLP <span>Wiki</span></h1>
+            <p>Search items, guides, commands and other stuff for the GSKLP servers</p>
+            <form class="searchbox" id="homeForm">
+                <input id="homeQ" type="search" placeholder="Search everything\u2026" autocomplete="off">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+        <section class="cats">${cards}</section>`;
+
+    document.getElementById("homeForm").addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        let q = document.getElementById("homeQ").value.trim();
+        location.hash = "#/search/" + encodeURIComponent(q);
+    });
+}
+
+function showBrowse(scope, q) {
+    let cat = null;
+
+    if (scope !== "all") {
+        for (let i = 0; i < klpCats.length; i++) {
+            if (klpCats[i].id === scope) cat = klpCats[i];
+        }
+        if (!cat) return showMissing();
+    }
+
+    let title = cat ? esc(cat.name) : "Search everything";
+    let sub = cat ? esc(cat.desc) : "Results from all categories";
+    let placeholder = cat ? "Search in " + esc(cat.name) + "\u2026" : "Search everything\u2026";
+
+    app.innerHTML = `
+        <div class="pagehead">
+            <h2>${title}</h2>
+            <p>${sub}</p>
+        </div>
+        <form class="searchbox" id="f">
+            <input id="q" type="search" autocomplete="off" value="${esc(q)}" placeholder="${placeholder}">
+            <button type="submit">Search</button>
+        </form>
+        <div class="meta" id="meta"></div>
+        <div id="results"></div>`;
+
+    let input = document.getElementById("q");
+    let meta = document.getElementById("meta");
+    let box = document.getElementById("results");
+
+    function update() {
+        let term = input.value.toLowerCase().trim();
+        let list = [];
+
+        // not doing a real search engine for 6 pages
+        for (let i = 0; i < klpPages.length; i++) {
+            let page = klpPages[i];
+            if (scope !== "all" && page.category !== scope) continue;
+
+            let text = page.title + " " + (page.summary || "") + " " + (page.tags || []).join(" ") + " " + (page.content || []).join(" ") + " " + Object.values(page.details || {}).join(" ");
+
+            if (!term || text.toLowerCase().indexOf(term) > -1) {
+                list.push(page);
+            }
+        }
+
+        list.sort(function (a, b) {
+            return a.title.localeCompare(b.title);
+        });
+
+        meta.textContent = list.length === 1 ? "1 page" : list.length + " pages";
+
+        let html = "";
+
+        for (let i = 0; i < list.length; i++) {
+            let page = list[i];
+            let pageCat = null;
+
+            for (let j = 0; j < klpCats.length; j++) {
+                if (klpCats[j].id === page.category) pageCat = klpCats[j];
+            }
+            if (!pageCat) pageCat = { name: "GSKLP", color: "#8b5cf6" };
+
+            html += `<a class="result" href="#/e/${encodeURIComponent(page.id)}">
+                <div class="crumb"><span class="dot" style="background:${pageCat.color}"></span>${esc(pageCat.name)} &rsaquo; ${esc(page.type)}</div>
+                <div class="rtitle">${esc(page.title)}</div>
+                <div class="rsnip">${esc(page.summary || "")}</div>
+            </a>`;
+        }
+
+        if (!html) {
+            html = `<div class="empty">No results found. Try different words.</div>`;
+        }
+
+        box.innerHTML = html;
+    }
+
+    input.addEventListener("input", update);
+
+    document.getElementById("f").addEventListener("submit", function (ev) {
+        ev.preventDefault();
+    });
+
+    update();
+}
+
+function showPage(id) {
+    let page = null;
+
+    for (let i = 0; i < klpPages.length; i++) {
+        if (klpPages[i].id === id) page = klpPages[i];
+    }
+    if (!page) return showMissing();
+
+    let cat = null;
+
+    for (let i = 0; i < klpCats.length; i++) {
+        if (klpCats[i].id === page.category) cat = klpCats[i];
+    }
+    if (!cat) cat = { id: "gsklp", name: "GSKLP" };
+
+    document.title = page.title + " - GSKLP Wiki";
+
+    let info = "";
+    let keys = Object.keys(page.details || {});
+
+    if (keys.length) {
+        info = '<table class="info">';
+        for (let i = 0; i < keys.length; i++) {
+            info += "<tr><th>" + esc(keys[i]) + "</th><td>" + esc(page.details[keys[i]]) + "</td></tr>";
+        }
+        info += '</table>';
+    }
+
+    let lead = page.summary ? `<p class="lead">${esc(page.summary)}</p>` : "";
+    let updated = page.updated ? `<p class="meta">last updated ${esc(page.updated)}</p>` : "";
+    let tags = "";
+
+    if (page.tags && page.tags.length) {
+        tags = '<div class="tags">';
+        for (let i = 0; i < page.tags.length; i++) {
+            let tag = page.tags[i];
+            tags += `<a class="badge" href="#/search/${encodeURIComponent(tag)}">#${esc(tag)}</a>`;
+        }
+        tags += '</div>';
+    }
+
+    let body = page.content || [];
+    let bodyHtml = "";
+    let list = [];
+
+    for (let i = 0; i < body.length; i++) {
+        let line = body[i];
+
+        if (line.indexOf("- ") === 0) {
+            list.push(line.slice(2));
+            continue;
+        }
+
+        if (list.length) {
+            bodyHtml += "<ul>";
+            for (let j = 0; j < list.length; j++) bodyHtml += "<li>" + esc(list[j]) + "</li>";
+            bodyHtml += "</ul>";
+            list = [];
+        }
+
+        if (line.indexOf("## ") === 0) {
+            bodyHtml += "<h3>" + esc(line.slice(3)) + "</h3>";
+        } else {
+            bodyHtml += "<p>" + esc(line) + "</p>";
+        }
+    }
+
+    if (list.length) {
+        bodyHtml += "<ul>";
+        for (let j = 0; j < list.length; j++) bodyHtml += "<li>" + esc(list[j]) + "</li>";
+        bodyHtml += "</ul>";
+    }
+
+    app.innerHTML = `
+        <div class="bc"><a href="#/">Home</a> &rsaquo; <a href="#/c/${cat.id}/">${esc(cat.name)}</a> &rsaquo; ${esc(page.title)}</div>
+        <article class="entry">
+            <h1>${esc(page.title)}</h1>
+            <span class="badge">${esc(page.type)}</span>
+            ${lead}
+            ${updated}
+            ${info}
+            ${bodyHtml}
+            ${tags}
+        </article>`;
+}
+
+function showMissing() {
+    app.innerHTML = `<div class="empty">Page not found. <a href="#/" style="color:var(--link)">Back to home</a></div>`;
+}
+
+function render() {
+    document.title = "GSKLP Wiki";
+
+    let parts = location.hash.replace(/^#\/?/, "").split("/");
+    let a = parts[0];
+    let b = parts[1];
+
+    window.scrollTo(0, 0);
+
+    if (!a) {
+        showHome();
+    } else if (a === "search") {
+        showBrowse("all", decodeURIComponent(parts.slice(1).join("/")));
+    } else if (a === "c") {
+        showBrowse(b, decodeURIComponent(parts.slice(2).join("/")));
+    } else if (a === "e") {
+        showPage(decodeURIComponent(b || ""));
+    } else {
+        showMissing();
+    }
+}
+
+window.addEventListener("hashchange", render);
+render();
+</script>
+</body>
+</html>
